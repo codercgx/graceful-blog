@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var articleRouter = require('./routes/articles')
 var uploadRouter = require('./routes/upload')
 var pageRouter = require('./routes/page')
+var albumRouter= require('./routes/album')
+var demoRouter= require('./routes/demo')
 
 const session = require('express-session')
 
@@ -48,6 +50,8 @@ app.use('/user', usersRouter);
 app.use('/article', articleRouter)
 app.use('/upload', uploadRouter)
 app.use('/page', pageRouter)
+app.use('/album',albumRouter)
+app.use('/demo',demoRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

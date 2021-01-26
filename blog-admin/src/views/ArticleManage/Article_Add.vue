@@ -1,6 +1,7 @@
 <template>
   <div class="artilce_add">
-    <h2><i class="el-icon-edit-outline"></i> 文章内容编辑与发表</h2>
+   <el-card>
+      <h2><i class="el-icon-edit-outline"></i> 文章内容编辑与发表</h2>
     <el-form :model="articleData">
       <el-form-item label="文章标题">
         <el-input
@@ -92,6 +93,7 @@
         >
       </el-form-item>
     </el-form>
+   </el-card>
   </div>
 </template>
 

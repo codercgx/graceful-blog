@@ -1,6 +1,7 @@
 <template>
   <div class="artilce_list">
-    <el-form>
+   <el-card>
+      <el-form>
       <el-row
         type="flex"
         justify="space-between"
@@ -112,6 +113,7 @@
       :total="400"
     >
     </el-pagination>
+   </el-card>
   </div>
 </template>
 
@@ -194,6 +196,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.el-card{
+  height: 1000px;
+  :deep() .el-card__body{
+    height: 100%;
+  }
+}
 .el-form {
   margin: 10px 0 30px 0;
   .el-row {
@@ -233,6 +241,9 @@ export default defineComponent({
       width: 60px;
       text-align: center;
       padding: 5px;
+      span{
+        font-size: 14px;
+      }
     }
     .el-tag {
       margin-right: 5px;
