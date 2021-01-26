@@ -37,7 +37,8 @@ router.get('/list', async (req, res) => {
     docs.forEach(item => {
         tempAlbumArr.push({
             label: item.label,
-            files: item.files
+            files: item.files,
+            create_time: item.create_time
         })
     })
     res.send({
