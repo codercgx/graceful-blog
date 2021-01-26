@@ -66,7 +66,7 @@ router.post('/pic/album', album_upload.array('file', 12), async (req, res) => {
 
 /* demo文件上传 */
 
-const demo_upload = multer({ dest: __dirname + "/../upload/demo" })
+const demo_upload = multer({ dest: __dirname + "/../uploads/demo" })
 router.post('/pic/demo', demo_upload.array('file', 12), async (req, res) => {
   let files = req.files;
 

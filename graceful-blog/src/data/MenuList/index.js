@@ -10,8 +10,8 @@ export const menuList=[
         title: 'Demo'
     },
     {
-        path: '/photos',
-        name: 'Photos',
+        path: '/album',
+        name: 'Album',
         title: '云相册'
     },
     {

@@ -34,7 +34,7 @@ export default defineComponent({
         icon: "iconfont icon-liuyan2",
         path: "/messageboard",
       },
-      { name: " Photos", icon: "iconfont icon-xiangce", path: "/photos" },
+      { name: " Album", icon: "iconfont icon-xiangce", path: "/album" },
       { name: " Github", icon: "iconfont icon-GitHub", path: "/github" },
     ]);
     const router=useRouter()
