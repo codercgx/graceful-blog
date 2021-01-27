@@ -86,7 +86,7 @@ export default defineComponent({
       files: [],
     });
 
-    const upload_album_url = "/api/" + upload_album_pic_url;
+    const upload_album_url = "/api" + upload_album_pic_url;
 
     const { ctx }= getCurrentInstance()
 

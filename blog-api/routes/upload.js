@@ -65,7 +65,6 @@ router.post('/pic/album', album_upload.array('file', 12), async (req, res) => {
 
 
 /* demo文件上传 */
-
 const demo_upload = multer({ dest: __dirname + "/../uploads/demo" })
 router.post('/pic/demo', demo_upload.array('file', 12), async (req, res) => {
   let files = req.files;
@@ -98,4 +97,31 @@ router.post('/pic/demo', demo_upload.array('file', 12), async (req, res) => {
   });
 
 })
+
+/* 用户头像上传 */
+const avator_upload = multer({dest: __dirname+ "/../uploads/avatar"})
+router.post('/pic/avatar' , avator_upload.single('file') ,async (req,res)=>{
+  const file=req.file
+  const newName=file.path + "/../" + new Date().getTime() + file.originalname
+  const fileName=newName.split("..")[1].slice(1)
+  fs.rename(file.path, newName,(err,data)=>{
+    if(!err){
+      file.url= `http://localhost:3000/avatar/${fileName}`
+      return res.send({
+        code: 0,
+        data: {
+          file
+        }
+      })
+    }else{
+      res.send({
+        code: 999,
+        data: {
+          file
+        }
+      })
+    }
+  })
+} )
+
 module.exports = router;

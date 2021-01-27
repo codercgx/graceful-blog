@@ -12,7 +12,7 @@ const schema = new Schema({
     },
     email: { type: String, required: true },
     info: { type: String, required: true, default: '这里还是空的，写一些你的介绍吧~' },
-    uploadimg: { type: String, required: true, default: 'http://localhost:3000/images/caa3ffe24938807296443c7a34d9d5a5.jpg' },
+    avatar: { type: String, required: true, default: 'http://localhost:3000/images/caa3ffe24938807296443c7a34d9d5a5.jpg' },
     registerTime: { type: String, default: new Date() }
 })
 

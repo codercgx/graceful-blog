@@ -176,6 +176,7 @@ export default defineComponent({
         (res) => {
           console.log(res);
           localStorage.setItem('auth_token',res.token)
+          localStorage.setItem('user_info',JSON.stringify(res.doc))
           ctx.$message({
             type: "success",
             message: "登录成功",

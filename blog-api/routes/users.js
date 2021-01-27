@@ -75,4 +75,38 @@ router.post('/emailInfo', async (req, res) => {
 })
 
 
+router.get('/profile/:id', async (req, res) => {
+  const { id } = req.params
+  const doc = await UserModel.findById(id)
+  if (doc) {
+    return res.send(
+      {
+        code: 0,
+        data: {
+          user: doc
+        }
+      }
+    )
+  }
+})
+
+router.put('/edit/:id', async (req, res) => {
+  const { id } = req.params
+  const { username, email, avatar, info } = req.body
+  await UserModel.update({ _id: id }, {
+    $set: {
+      username, email, avatar, info
+    }
+  })
+  const user=await UserModel.findById(id)
+  return res.send({
+    code: 0,
+    data: {
+      user
+    }
+  })
+
+})
+
+
 module.exports = router;

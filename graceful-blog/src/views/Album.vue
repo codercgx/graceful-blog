@@ -4,7 +4,6 @@
       <el-card
         @mouseenter="handleMouseEnter(index)"
         @mouseleave="handleMouseLeave(index)"
-        @click="handleClick(item)"
       >
         <div class="img_wrap">
           <img
@@ -23,7 +22,7 @@
         </div>
         <div class="mask" v-show="item.isShowMask">
           <div class="view-icon">
-            <i class="el-icon-view"></i>
+            <i class="el-icon-view"  @click="handleClick(item)"></i>
           </div>
           <p class="album-count">当前相册总共: {{ item.files.length }}张</p>
           <p class="album-time">上传于:{{ item.create_time }}</p>
@@ -32,9 +31,10 @@
     </div>
 
     <div class="dialogVisible">
-       <el-dialog title="当前相册" v-model="dialogVisible" width="50%" center>
+       <el-dialog title="当前相册" @close="closeDialogVisible"
+        v-model="dialogVisible" width="50%" center>
         <el-carousel :interval="4000" type="card" height="400px">
-          <el-carousel-item
+          <el-carousel-item v-if="previewPicData.files"
             v-for="(file, current) in previewPicData.files"
             :key="file.file_url"
           >
@@ -82,10 +82,14 @@ export default defineComponent({
       albumList.value = [..._albumList];
     };
     const handleClick = (item) => {
-      previewPicData.value = item;
+      previewPicData.value = JSON.parse(JSON.stringify(item));
       dialogVisible.value = true;
       console.log(item);
     };
+    const closeDialogVisible=()=>{
+       previewPicData.value.files=[]
+       console.log('关闭 Dialog');
+    }
     return {
       albumList,
       label_type,
@@ -95,7 +99,8 @@ export default defineComponent({
       isShowMask,
       dialogVisible,
       previewPicData,
-      handleClick
+      handleClick,
+      closeDialogVisible
     };
   },
 });

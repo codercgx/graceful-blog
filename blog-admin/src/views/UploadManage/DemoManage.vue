@@ -105,7 +105,7 @@ export default defineComponent({
     "My-Editor": Editor,
   },
   setup() {
-    const upload_album_url = "/api/" + upload_album_pic_url;
+    const upload_album_url = "/api" + upload_album_pic_url;
 
     const upload_headers = {
       "Content-Type": "multipart/form-data",

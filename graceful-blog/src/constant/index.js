@@ -1,0 +1,1 @@
+export const upload_avatar_url= '/upload/pic/avatar'
