@@ -115,7 +115,7 @@ import {
   watch,
 } from "vue";
 import {useRouter} from 'vue-router'
-import { blogApi } from "@/utils/http/request";
+import { userApi } from "@/utils/http/request";
 export default defineComponent({
   name: "Login",
   setup() {
@@ -172,7 +172,7 @@ export default defineComponent({
         username: loginFormData.username,
         password: loginFormData.password,
       };
-      blogApi.userLogin(params).then(
+      userApi.userLogin(params).then(
         (res) => {
           console.log(res);
           localStorage.setItem('auth_token',res.token)
@@ -210,7 +210,7 @@ export default defineComponent({
         email: registerFormData.email + "@qq.com",
         captcha: registerFormData.captcha,
       };
-      blogApi.userRegister(params).then(
+      userApi.userRegister(params).then(
         (res) => {
           console.log(res);
           localStorage.setItem('auth_token',res.token)
@@ -246,7 +246,7 @@ export default defineComponent({
           return;
         }
       }, 1000);
-      blogApi.sendEmailCode(params).then(
+      userApi.sendEmailCode(params).then(
         (res) => {
           console.log(res);
            ctx.$message({

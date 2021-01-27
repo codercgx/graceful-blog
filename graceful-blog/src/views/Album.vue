@@ -25,7 +25,7 @@
           <div class="view-icon">
             <i class="el-icon-view"></i>
           </div>
-          <p class="album-count">当前相册共: {{ item.files.length }}张</p>
+          <p class="album-count">当前相册总共: {{ item.files.length }}张</p>
           <p class="album-time">上传于:{{ item.create_time }}</p>
         </div>
       </el-card>

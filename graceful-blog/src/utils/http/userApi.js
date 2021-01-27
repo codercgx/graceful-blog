@@ -1,5 +1,5 @@
 import request from './http'
-export default class BlogApi{
+export default class UserApi{
     constructor(){
         this.config={
             userLogin: '/user/login',

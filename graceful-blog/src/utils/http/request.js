@@ -1,6 +1,6 @@
-import BlogApi from './userApi'
+import UserApi from './userApi'
 import AlbumApi from './albumApi'
 
-export const blogApi=new BlogApi()
+export const userApi=new UserApi()
 
 export const albumApi=new AlbumApi()
