@@ -34,8 +34,8 @@
        <el-dialog title="当前相册" @close="closeDialogVisible"
         v-model="dialogVisible" width="50%" center>
         <el-carousel :interval="4000" type="card" height="400px">
-          <el-carousel-item v-if="previewPicData.files"
-            v-for="(file, current) in previewPicData.files"
+          <el-carousel-item v-if="currentAlbumSrc"
+            v-for="(file, current) in currentAlbumSrc"
             :key="file.file_url"
           >
             <img :src="file.file_url" alt="" />
@@ -70,6 +70,9 @@ export default defineComponent({
         return files[index].file_url;
       };
     });
+    const currentAlbumSrc=computed(()=>{
+      return previewPicData.value.files
+    })
     const isShowMask = ref(false);
     const handleMouseEnter = (index) => {
       const _albumList = albumList.value;
@@ -84,7 +87,7 @@ export default defineComponent({
     const handleClick = (item) => {
       previewPicData.value = JSON.parse(JSON.stringify(item));
       dialogVisible.value = true;
-      console.log(item);
+      console.log(previewPicData.value.files);
     };
     const closeDialogVisible=()=>{
        previewPicData.value.files=[]
@@ -100,7 +103,8 @@ export default defineComponent({
       dialogVisible,
       previewPicData,
       handleClick,
-      closeDialogVisible
+      closeDialogVisible,
+      currentAlbumSrc
     };
   },
 });

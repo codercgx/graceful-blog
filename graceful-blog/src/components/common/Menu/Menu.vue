@@ -1,33 +1,45 @@
 <template>
   <div id="menu_list">
-     <router-link :to="item.path" v-for="(item,index) in menuData" :key="index">{{item.title}}</router-link>
+    <router-link
+      :to="item.path"
+      v-for="(item, index) in menuData"
+      :key="index"
+      v-show="item.path !== '/login'"
+      >{{ item.title }}</router-link
+    >
+    <router-link v-if="!userLocalInfo.isLogin" to="/login">µÇÂ¼</router-link>
+    <router-link to="/profile"> <img :src="userLocalInfo.user_info.avatar" alt=""> </router-link>
   </div>
 </template>
 <script>
-
-import { computed, defineComponent, onMounted } from 'vue'
-import {menuList} from '@/data/MenuList'
-  export default defineComponent({
-    
-    setup(){
-      const menuData=computed(()=>{
-        {
-        return menuList
+import { computed, defineComponent, onMounted } from "vue";
+import { menuList } from "@/data/MenuList";
+export default defineComponent({
+  setup() {
+    const menuData = computed(() => {
+      {
+        return menuList;
       }
-      })
-
+    });
+    const userLocalInfo = computed(() => {
+      let auth_token= localStorage.getItem("auth_token");
+      let user_info=JSON.parse(localStorage.getItem('user_info'))
       return {
-        menuData
+        isLogin: auth_token&&auth_token.length>0,
+        user_info: user_info
       }
-    }
-  })
-   
-  
+    });
 
+    return {
+      menuData,
+      userLocalInfo,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-#menu_list{
+#menu_list {
   display: flex;
   height: 3rem;
   justify-content: center;
@@ -46,12 +58,11 @@ import {menuList} from '@/data/MenuList'
     color: lightgreen;
   }
 }
-img{
+img {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
   vertical-align: middle;
   margin-right: 0.5rem;
 }
-  
 </style>

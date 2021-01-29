@@ -10,6 +10,8 @@ import '@/assets/iconfont4/iconfont.css'
 import '@/assets/iconfont5/iconfont.css'
 
 import installElementPlus from '@/plugins/element'
+
 const app = createApp(App)
+
 installElementPlus(app)
 app.use(store).use(router).mount('#app')
