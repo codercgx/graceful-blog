@@ -92,7 +92,42 @@ router.delete('/del/:id', async (req, res) => {
 
 })
 
+router.put('/visits/:id', async (req,res)=>{
+    const id=req.params.id
+    const doc= await ArticleModel.findById(id)
 
+    const visits_num=doc.visited+1
+    const result=  await ArticleModel.update({_id: id},{
+        $set: {
+            visited: visits_num
+        }
+    })
+
+    return res.send({
+        code: 0,
+        data: {
+            result
+        }
+    })
+})
+
+
+router.put('/upvote/:id', async (req,res)=>{
+    const id= req.params.id
+    const doc= await ArticleModel.findById(id)
+    const upvote_num=doc.like_stars+1
+    const result=await ArticleModel.update({_id: id},{
+        $set: {
+            like_stars: upvote_num
+        }
+    })
+    return res.send({
+        code: 0,
+        data:{
+            result
+        }
+    })
+})
 
 
 

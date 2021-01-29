@@ -8,7 +8,7 @@ const schema = new Schema({
     content: { type: String, default: null, required: true },
     cover_src: { type: String, default: null, required: true },
     visited: { type: Number, default: 0 },
-    like_stars: { type: Number, default: 0 },
+    upvote_users: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'User' }],
     label: [{
         name: {
             type: String, default: null, required: true

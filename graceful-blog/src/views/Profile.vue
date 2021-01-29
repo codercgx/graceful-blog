@@ -135,7 +135,14 @@ export default defineComponent({
     });
 
     const editUserDialogVisible = ref(false);
-    let editUserInfo = () => {
+    let editUserInfo = async () => {
+      const id = local_user_inof._id;
+      const result = await userApi.getUserInfo(id);
+      console.log(result);
+      editUserData.username = result.user.username;
+      editUserData.avatar = result.user.avatar;
+      editUserData.email = result.user.email;
+      editUserData.info = result.user.info;
       editUserDialogVisible.value = true;
     };
     onMounted(() => {
@@ -149,17 +156,18 @@ export default defineComponent({
     };
     const handleSave = async () => {
       await submitUpload();
+      console.log(editUserData);
       const result = await userApi.editUserInfo(userInfo._id, editUserData);
       console.log(result);
-      localStorage.setItem('user_info',result.user)
+      localStorage.setItem("user_info", JSON.stringify(result.user));
       ctx.$message({
         message: "修改成功",
         type: "success",
       });
-      editUserInfo={}
-      fileList.value=[]
+      editUserInfo = {};
+      fileList.value = [];
       editUserDialogVisible.value = false;
-      getUserInfo()
+      getUserInfo();
 
       editUserData = {};
     };
