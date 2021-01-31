@@ -93,15 +93,16 @@ export default defineComponent({
 #demo {
   .wrap {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     :deep() .el-card {
-      margin: 20px;
+      margin: 10px;
       border-radius: 10px;
       &:hover {
         transform: scale(0.97);
       }
     }
-    padding: 10px 150px;
+    padding: 10px 100px;
     .card_item {
       display: flex;
       align-items: center;
