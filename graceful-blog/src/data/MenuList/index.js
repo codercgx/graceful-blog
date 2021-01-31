@@ -10,6 +10,11 @@ export const menuList=[
         title: 'Demo'
     },
     {
+        path: '/demo/:id',
+        name: 'DemoDetail',
+        title: 'Demo详情'
+    },
+    {
         path: '/album',
         name: 'Album',
         title: '云相册'
