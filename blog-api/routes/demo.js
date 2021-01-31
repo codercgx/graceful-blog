@@ -3,7 +3,7 @@ const router = express.Router()
 const demoModel = require('../models/Demo')
 
 router.post('/add', async (req, res) => {
-    let { title, label, description, codeContent ,files} = req.body
+    let { title, label, description, codeContent, files } = req.body
     const nowDate = new Date();
     const year = nowDate.getFullYear();
     const mouth = nowDate.getMonth() + 1;
@@ -20,4 +20,25 @@ router.post('/add', async (req, res) => {
     })
 })
 
+router.get('/list', async (req, res) => {
+    const data = await demoModel.find()
+    return res.send({
+        code: 0,
+        data: {
+            demoList: data
+        }
+    })
+})
+
+
+router.get('/detail/:id', async (req, res) => {
+    const id = req.params.id
+    const demoDetail = await demoModel.findById(id)
+    return res.send({
+        code: 0,
+        data: {
+            demoDetail
+        }
+    })
+})
 module.exports = router
