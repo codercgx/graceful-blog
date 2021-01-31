@@ -1,5 +1,6 @@
 const express = require('express')
 const ArticleModel = require("../models/Article")
+const UserModel = require('../models/User')
 const router = express.Router({
     mergeParams: true
 })
@@ -92,12 +93,11 @@ router.delete('/del/:id', async (req, res) => {
 
 })
 
-router.put('/visits/:id', async (req,res)=>{
-    const id=req.params.id
-    const doc= await ArticleModel.findById(id)
-
-    const visits_num=doc.visited+1
-    const result=  await ArticleModel.update({_id: id},{
+router.put('/visits/:id', async (req, res) => {
+    const id = req.params.id
+    const doc = await ArticleModel.findById(id)
+    const visits_num = doc.visited + 1
+    const result = await ArticleModel.update({ _id: id }, {
         $set: {
             visited: visits_num
         }
@@ -112,19 +112,38 @@ router.put('/visits/:id', async (req,res)=>{
 })
 
 
-router.put('/upvote/:id', async (req,res)=>{
-    const id= req.params.id
-    const doc= await ArticleModel.findById(id)
-    const upvote_num=doc.like_stars+1
-    const result=await ArticleModel.update({_id: id},{
-        $set: {
-            like_stars: upvote_num
-        }
-    })
+router.put('/upvote', async (req, res) => {
+    const { id, user_id } = req.body
+    const doc = await ArticleModel.findById(id)
+    let upvote_users = doc.upvote_users
+    const user = await UserModel.findById(user_id)
+    const userId = user._id
+    console.log('用户id', userId);
+    if (upvote_users.indexOf(user_id) > -1) {
+        console.log('取消点赞');
+        upvote_users = upvote_users.filter(item => !String(item).includes(userId)
+        )
+        console.log('当前点赞的用户', upvote_users);
+        await ArticleModel.updateOne({ _id: id }, {
+            $set: {
+                upvote_users: upvote_users
+            }
+        })
+    } else {
+        console.log('点赞');
+        upvote_users.push(userId)
+        await ArticleModel.updateOne({ _id: id }, {
+            $set: {
+                upvote_users: upvote_users
+            }
+        })
+    }
+
+    const item = await ArticleModel.findById(id)
     return res.send({
         code: 0,
-        data:{
-            result
+        data: {
+            state: item.upvote_users.indexOf(user_id) > -1
         }
     })
 })
