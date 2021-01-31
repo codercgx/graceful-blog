@@ -17,7 +17,7 @@ export default defineComponent({
   setup() {
     const menuData = computed(() => {
         return menuList.filter(item=> {
-          return (item.path!='/login') && (item.path!='/article/:id')
+          return (item.path!='/login') && (item.path!='/article/:id') && (item.path!='/demo/:id')
         });
       
     });
