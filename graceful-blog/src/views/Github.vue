@@ -73,30 +73,36 @@ export default defineComponent({
       public_repos: "",
       updated_at: "",
     });
+
     const reposList = ref([]);
     const previewDetail = (item) => {
       window.open(item.svn_url, "_blank");
     };
-    const previewUser=(username)=>{
-        window.open(`https://github.com/${username}?tab=repositories`, "_blank");
-        isShowLocading.value=false
-   
-    }
+    const previewUser = (username) => {
+      window.open(`https://github.com/${username}?tab=repositories`, "_blank");
+      isShowLocading.value = false;
+    };
     onMounted(() => {
-     
+      const loading = ctx.$loading({
+        // 声明一个loading对象
+        lock: true, // 是否锁屏
+        text: "正在加载...", // 加载动画的文字
+        spinner: "el-icon-loading", // 引入的loading图标
+        background: "rgba(0, 0, 0, 0.3)", // 背景颜色
+        target: ".sub-main", // 需要遮罩的区域
+        body: true,
+        customClass: "mask", // 遮罩层新增类名
+      });
       _githubUserInfo();
       _githubUserRepos();
       _githubReposDetail();
+      loading.close();
     });
     const _githubUserInfo = async () => {
-      // ctx.$loading({
-      //   text: '������',
-      // })
       const result = await githubUserInfo("codercgx");
       Object.keys(my_github_userInfo).forEach((key) => {
         my_github_userInfo[key] = result.data[key];
       });
-
       console.log(result);
     };
     const _githubUserRepos = async () => {
@@ -113,7 +119,7 @@ export default defineComponent({
       my_github_userInfo,
       reposList,
       previewDetail,
-      previewUser
+      previewUser,
     };
   },
 });
