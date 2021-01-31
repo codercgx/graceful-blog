@@ -4,11 +4,10 @@
       :to="item.path"
       v-for="(item, index) in menuData"
       :key="index"
-      v-show="item.path !== '/login'"
       >{{ item.title }}</router-link
     >
-    <router-link v-if="!userLocalInfo.isLogin" to="/login">µÇÂ¼</router-link>
-    <router-link to="/profile"> <img :src="userLocalInfo.user_info.avatar" alt=""> </router-link>
+    <router-link v-if="!userLocalInfo.isLogin" to="/login">ç™»å½•</router-link>
+    <router-link v-else to="/profile"> <img :src="userLocalInfo.user_info.avatar" alt=""> </router-link>
   </div>
 </template>
 <script>
@@ -17,9 +16,10 @@ import { menuList } from "@/data/MenuList";
 export default defineComponent({
   setup() {
     const menuData = computed(() => {
-      {
-        return menuList;
-      }
+        return menuList.filter(item=> {
+          return (item.path!='/login') && (item.path!='/article/:id')
+        });
+      
     });
     const userLocalInfo = computed(() => {
       let auth_token= localStorage.getItem("auth_token");
@@ -29,7 +29,6 @@ export default defineComponent({
         user_info: user_info
       }
     });
-
     return {
       menuData,
       userLocalInfo,
