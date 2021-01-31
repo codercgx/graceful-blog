@@ -13,6 +13,10 @@
               <i :class="String(item.upvote_users).includes(user_id) ? 'el-icon-star-on' : 'el-icon-star-off' " @click="upvoteArticle(item._id)"></i>
               <span>{{ item.upvote_users.length }}</span>
             </div>
+            <div class="article_label">
+              <el-tag v-for="tag in item.label" 
+              :key="item._id" :type="labelTypes[Math.ceil(Math.random()*5)]">{{tag.name}}</el-tag>
+            </div>
           </div>
         </div>
       </el-card>
@@ -28,6 +32,7 @@ export default defineComponent({
     let articleList = ref([]);
     const { ctx } = getCurrentInstance();
     const router=useRouter()
+    const labelTypes=ref(['','success','wraning','danger','info'])
     onMounted(() => {
       ctx.$message({
         message: "数据加载完成",
@@ -64,7 +69,8 @@ export default defineComponent({
       upvoteArticle,
       visitsArticle,
       user_id,
-      previewArticle
+      previewArticle,
+      labelTypes
     };
   },
 });
@@ -111,6 +117,12 @@ export default defineComponent({
             font-size: 16px;
           }
           span {
+            margin-right: 8px;
+          }
+        }
+        .article_label{
+          .el-tag{
+            margin-top: 8px;
             margin-right: 8px;
           }
         }
