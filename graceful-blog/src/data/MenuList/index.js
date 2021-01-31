@@ -30,6 +30,11 @@ export const menuList=[
         title: '文章列表'
     },
     {
+        path: '/article/:id',
+        name: 'ArticleDetail',
+        title: '文章详情'
+    },
+    {
         path: '/profile',
         name: 'Profile',
         title: '个人信息'
