@@ -3,11 +3,16 @@
     <div v-if="isLight" class="light"></div>
     <div v-else class="night"></div>
     <!-- <Light @changeBackground="changeBG"></Light> -->
-    <Header class="header" :class="{active: isActive}" v-show="isActive"></Header>
+    <Header
+      class="header"
+      :class="{ active: isActive }"
+      v-show="isActive"
+    ></Header>
     <router-view v-slot="{ Component }">
-      <keep-alive exclude="Login">
+      <!-- <keep-alive exclude="Login,Article,ArticleDetail">
         <component :is="Component" />
-      </keep-alive>
+      </keep-alive> -->
+      <component :is="Component" />
     </router-view>
   </div>
 </template>
@@ -17,7 +22,7 @@ import Header from "@/components/common/Header/Header";
 import Light from "@/components/common/highlight/light";
 
 import { computed, defineComponent, onUpdated, watch, ref } from "vue";
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import { CHANGE_BG } from "@/store/actionTypes";
@@ -29,9 +34,9 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const router=useRouter()
-    const route=useRoute()
-    const isActive=ref(false)
+    const router = useRouter();
+    const route = useRoute();
+    const isActive = ref(false);
     const isLight = computed(() => {
       return store.state.isLight;
     });
@@ -40,15 +45,18 @@ export default defineComponent({
       store.commit(CHANGE_BG, !store.state.isLight);
     };
 
-    watch(()=> route.name,(newVal)=>{
-      console.log(newVal);
-      isActive.value= newVal!=='Home'
-    })
+    watch(
+      () => route.name,
+      (newVal) => {
+        console.log(newVal);
+        isActive.value = newVal !== "Home";
+      }
+    );
 
     return {
       isLight,
       changeBG,
-      isActive
+      isActive,
     };
   },
 });
